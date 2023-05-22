@@ -1,0 +1,78 @@
+
+1.Create resources/lang/en/messages.php (same for fr,de,hi etc)
+2.Open each messages.php file and define key-value pairs for the translations. 
+For example
+
+<?php
+return [
+    'welcome' => 'Welcome',
+    'greeting' => 'Hello, :name',
+    // Add more translations as needed
+];
+?>
+3. Create LangController Controller
+   app/Http/Controllers/LangController.php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+
+class LanguageController extends Controller
+{
+    //
+    public function switch(Request $request, $locale)
+    {
+        // return $locale;
+        App::setLocale($locale);
+        session()->put('locale', $locale); 
+        return redirect()->back();
+    }
+}
+
+
+4. create route
+Route::get('/language/{locale}', [LanguageController::class, 'switch']);
+
+5. create ui with sub-menu/ dropdown for route
+
+                <li class="menu-item menu-item-has-children current-menu-item">
+                  <a href="adhd.php">Lan</a>
+                  <!--================ Sub Menu ================-->
+                  <ul class="sub-menu">
+                    <li class="menu-item menu-item-has-children1 current-menu-item1">
+                      {{-- <a href="{{route('language.switch','en')}}">English</a> --}}
+                      <a href="{{url('language/fr')}}">French</a>
+                      <a href="{{url('language/en')}}">English {{session('locale')}}</a>
+                      <a href="{{url('language/de')}}">German </a>
+                    </li>
+                  </ul>
+                  <!--================ End of Sub Menu ================-->
+                </li>
+6.create middleware to manage dynamic language with the dropdown/route
+<?php
+namespace App\Http\Middleware;
+use Closure;
+use App;
+use Illuminate\Http\Request;
+class Localization
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
+        if (session()->has('locale')) {
+            App::setLocale(session()->get('locale'));
+        }
+        return $next($request);
+    }
+}
+7. register middleware in kernel.php inthe web middleware group
+            \App\Http\Middleware\Localization::class,
