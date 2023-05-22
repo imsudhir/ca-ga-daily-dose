@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <?php
+ <!-- rightangle triangle -->
+
+function printRightAngleTriangle($rows, $currentRow = 1)
+{ 
+    if ($currentRow > $rows) {
+        return; // Base case: stop recursion when currentRow exceeds the desired number of rows
+    }
+
+    echo str_repeat("*", $currentRow); // Print asterisks for the current row
+    echo '<br>'; // Move to the next line
+
+    printRightAngleTriangle($rows, $currentRow + 1); // Recursive call for the next row
+}
+
+$numberOfRows = 5; // Specify the number of rows in the right-angle triangle
+printRightAngleTriangle($numberOfRows);
+
+?>
+
+<!-- pyramid without function -->
+function printPyramid($rows)
+{
+    for ($i = 1; $i <= $rows; $i++) {
+    
+    
+        echo str_repeat("&nbsp;&nbsp", $rows - $i); // Print spaces
+        echo str_repeat("*&nbsp;&nbsp", $i); // Print asterisks
+        echo "<br>"; // Move to the next line
+    }
+}
+
+$numberOfRows = 5; // Specify the number of rows in the pyramid
+printPyramid($numberOfRows);
+<!-- inverted pyramid without loop -->
+
+function printPyramid($rows, $currentRow = 5, $currentStars = 9)
+{
+    if ($currentRow > $rows) {
+        return; // Base case: stop recursion when currentRow exceeds the desired number of rows
+    }
+
+    echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $rows - $currentRow); 
+    // Print spaces
+    echo str_repeat("*&nbsp;&nbsp;", $currentStars); // Print asterisks
+    echo '<br>'; // Move to the next line
+
+    printPyramid($rows, $currentRow - 1, $currentStars - 2); // Recursive call for the next row
+}
+
+$numberOfRows = 5; // Specify the number of rows in the pyramid
+printPyramid($numberOfRows);
+
+<!-- square pattern without loop -->
+function printRightAngleTriangle($rows, $currentRow = 1)
+{
+    if ($currentRow > $rows) {
+        return; // Base case: stop recursion when currentRow exceeds the desired number of rows
+    }
+
+    echo str_repeat("* ", $rows); // Print asterisks for the current row
+    echo '<br>'; // Move to the next line
+
+    printRightAngleTriangle($rows, $currentRow + 1); // Recursive call for the next row
+}
+
+$numberOfRows = 5; // Specify the number of rows in the right-angle triangle
+printRightAngleTriangle($numberOfRows);
+
+
+?>
+
+ 
+</body>
+</html>

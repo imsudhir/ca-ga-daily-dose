@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <!-- rightangle triangle -->
+
+<?php
+$height = 5; // Define the height of the triangle
+ for($row=1; $row<=$height; $row++){
+ 	for($star =1; $star<=$row; $star++ ){
+	echo '*';
+
+}
+    echo "<br>";
+ }
+ <!-- inverted rightangle triangle -->
+echo "<br>";
+ for($row=1; $row<=$height; $row++){
+ 	for($star=$height; $star>=$row; $star-- ){
+	echo '*';
+
+}
+    echo "<br>";
+ }
+?>
+<!-- pyramid without function -->
+function printPyramid($rows)
+{
+    for ($i = 1; $i <= $rows; $i++) {
+    
+    
+        echo str_repeat("&nbsp;&nbsp", $rows - $i); // Print spaces
+        echo str_repeat("*&nbsp;&nbsp", $i); // Print asterisks
+        echo "<br>"; // Move to the next line
+    }
+}
+
+$numberOfRows = 5; // Specify the number of rows in the pyramid
+printPyramid($numberOfRows);
+
+</body>
+</html>
